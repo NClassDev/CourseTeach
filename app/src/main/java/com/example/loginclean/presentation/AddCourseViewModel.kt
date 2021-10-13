@@ -3,14 +3,17 @@ package com.example.loginclean.presentation
 import androidx.lifecycle.*
 import com.example.loginclean.data.Resource
 import com.example.loginclean.data.RoomRepository
+import com.example.loginclean.data.source.Alumnos
 import com.example.loginclean.data.source.AlumnosEntity
 import com.example.loginclean.data.source.Cursos
 import com.example.loginclean.domain.model.usecase.AlumnosRepository
 import com.example.loginclean.domain.model.usecase.CursosRepository
+import com.example.loginclean.utilis.DataMaper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,11 +34,15 @@ class AddCourseViewModel @Inject constructor(
         }
     }
 
+
+
+
     fun getAlumnos() = liveData(Dispatchers.IO){
         repository.getAlumnosList().collect { response ->
             emit(response)
         }
     }
+
 
 
 //    fun syncAlumnosFromFirebase() = liveData(Dispatchers.IO){
@@ -46,11 +53,11 @@ class AddCourseViewModel @Inject constructor(
 //        }
 //    }
 
-//    fun getAlumnosFromRoom() = liveData(Dispatchers.IO) {
-//        repository.getAlumnosFromRoom().collect {
-//            response -> emit(response)
-//        }
-//    }
+    fun getAlumnosFromRoom() = liveData(Dispatchers.IO) {
+        repository.getAlumnosFromRoom().collect {
+            response -> emit(response)
+        }
+    }
 
     fun putCurso(curso: Cursos) = liveData(Dispatchers.IO){
         repositoryCursos.putCursosFrom(curso).collect{
@@ -59,8 +66,12 @@ class AddCourseViewModel @Inject constructor(
         }
     }
 
-    suspend fun setAlumno(alumno: AlumnosEntity){
-        roomRepository.setAlumno(alumno)
+
+
+    fun setAlumno(alumno: Alumnos){
+        viewModelScope.launch {
+            roomRepository.setAlumno(DataMaper.changeAlumnoFirebaseToAlumnoRoom(alumno))
+        }
     }
 
 

@@ -111,7 +111,19 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcyclview_alumnos"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:outlineProvider="bounds"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_main_searchView_mcv_search_view" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcyclview_alumnosRoom"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_marginTop="20dp"
             android:outlineProvider="bounds"
             app:layout_constraintBottom_toBottomOf="parent"
