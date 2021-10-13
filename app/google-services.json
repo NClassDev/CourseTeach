@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "285060639163",
+    "project_id": "affable-skill-312023",
+    "storage_bucket": "affable-skill-312023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285060639163:android:274285a6443f64c7e4bc9e",
+        "android_client_info": {
+          "package_name": "com.example.loginclean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285060639163-vgrnj0bfu8tgpejdi0s0ecqmliolss22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcs7zVrsEWgq1cPSVCuicjkeKT5-m1_dE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285060639163-vgrnj0bfu8tgpejdi0s0ecqmliolss22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
