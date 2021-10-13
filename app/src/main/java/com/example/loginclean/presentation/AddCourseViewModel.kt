@@ -20,7 +20,6 @@ class AddCourseViewModel @Inject constructor(
     private val roomRepository: RoomRepository
 ): ViewModel() {
 
-
     private var currentSource: LiveData<List<AlumnosEntity>> =
         roomRepository.getAllAlumnos().asLiveData()
 

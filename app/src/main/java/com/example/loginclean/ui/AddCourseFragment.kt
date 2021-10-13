@@ -10,22 +10,25 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.loginclean.adapters.AlumnosAdapter
 import com.example.loginclean.data.ResourceFirebase
+import com.example.loginclean.data.source.Alumnos
 import com.example.loginclean.data.source.Cursos
 import com.example.loginclean.databinding.FragmentAddCourseBinding
 import com.example.loginclean.presentation.AddCourseViewModel
+import com.example.loginclean.utilis.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class AddCourseFragment : Fragment() {
+class AddCourseFragment : Fragment(), AlumnosAdapter.OnAlumnoClickListener {
 
     private var _binding: FragmentAddCourseBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddCourseViewModel>()
+    private lateinit var alumnosAdapter: AlumnosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        alumnosAdapter = AlumnosAdapter(requireContext(), this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,6 +45,8 @@ class AddCourseFragment : Fragment() {
     }
 
     private fun setupRecyclearView() {
+        binding.rcyclviewAlumnos.adapter = alumnosAdapter
+
         binding.rcyclviewAlumnos.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
@@ -105,7 +110,8 @@ class AddCourseFragment : Fragment() {
 
                 is ResourceFirebase.Success -> {
                     binding.progressBarAddcourse.visibility = View.GONE
-                    binding.rcyclviewAlumnos.adapter = AlumnosAdapter(requireContext(), response.data)
+                    alumnosAdapter.setAlumnosList(response.data)
+
                 }
 
                 is ResourceFirebase.Failure -> {
@@ -116,5 +122,10 @@ class AddCourseFragment : Fragment() {
             }
         })
     }
+
+    override fun onAlumnoClick(alumno: Alumnos, position: Int) {
+        showToast("${alumno.name}")
+    }
+
 
 }
