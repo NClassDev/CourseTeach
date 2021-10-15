@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -51,8 +52,7 @@ class HomeFragment : Fragment(), CursosAdapter.OnCursoClickListener {
         setupObservers()
 
         binding.floatingBtnAddCourse.setOnClickListener {
-         val action = HomeFragmentDirections.actionHomeFragmentToAddCourseFragment()
-            findNavController().navigate(action)
+            goToAddCourse()
         }
 
         binding.btnSignout.setOnClickListener {
@@ -61,7 +61,12 @@ class HomeFragment : Fragment(), CursosAdapter.OnCursoClickListener {
 
         }
 
+        binding.fragmentMainVerperfilTitle.setOnClickListener {
+            goToPerfil()
+        }
+
     }
+
 
 
     private fun setupRecyclearView() {
@@ -97,9 +102,6 @@ class HomeFragment : Fragment(), CursosAdapter.OnCursoClickListener {
         })
     }
 
-    private fun navigateToAddCourse(fragment: Int){
-        findNavController().navigate(fragment)
-    }
 
     override fun onCursoClick(curso: Cursos, position: Int) {
 
@@ -113,6 +115,17 @@ class HomeFragment : Fragment(), CursosAdapter.OnCursoClickListener {
         // set the new task and clear flags
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(i)
+    }
+
+
+    private fun goToPerfil() {
+        val action = HomeFragmentDirections.actionHomeFragmentToProfesorPerfilFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun goToAddCourse() {
+        val action = HomeFragmentDirections.actionHomeFragmentToAddCourseFragment()
+        findNavController().navigate(action)
     }
 
 }

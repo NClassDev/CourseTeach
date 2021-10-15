@@ -38,7 +38,10 @@ private val cursoClickListener : OnCursoClickListener
         override fun bind(curso :Cursos, position: Int) {
 
             itemView.apply {
-                itemView.cursos_item_name_text.text = curso.horario
+                itemView.cursos_item_id_text.text = "id: "+ curso.idcurso
+                itemView.curso_item_name_tv.text = curso.namecurso
+                itemView.curso_item_horario_tv.text = curso.horario
+
             }
 
 

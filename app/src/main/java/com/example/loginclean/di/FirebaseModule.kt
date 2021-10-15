@@ -2,6 +2,7 @@ package com.example.loginclean.di
 
 import com.example.loginclean.utilis.Constants.CURSOS_REF
 import com.example.loginclean.utilis.Constants.USERS_REF
+import com.example.loginclean.utilis.Constants.USER_REF
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,6 +30,12 @@ object FirebaseModule {
     @Named(USERS_REF)
     fun provideUsersRef(rootRef: FirebaseFirestore): CollectionReference {
         return rootRef.collection(USERS_REF)
+    }
+
+    @Provides
+    @Named(USER_REF)
+    fun provideUserRef(rootRef: FirebaseFirestore): CollectionReference {
+        return rootRef.collection(USER_REF)
     }
 
     @Provides

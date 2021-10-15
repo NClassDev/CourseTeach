@@ -91,6 +91,7 @@ class CursosRepository @Inject constructor(
             ).await().also { it ->
                 emit(ResourceFirebase.Success(it))
 
+
                 user.collection(USER_REF).document(getUserID()).collection(CURSOSPROFESOR)
                     .document(randomIDCurso).set(
                         hashMapOf(IDCURSO to randomIDCurso, NAMECURSO to curso.namecurso)

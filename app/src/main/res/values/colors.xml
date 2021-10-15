@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="black_transparent_50">#50000000</color>
+    <color name="item_curso_green">#9DDAC6</color>
+    <color name="form_blue_title">#209ADE</color>
+    <color name="form_blue">#1AB0F0</color>
+    <color name="background_blue_20">#5064C9CF</color>
+    <color name="btn_floating_home">#709FB0</color>
+    <color name="item_curso_white80">#AAFFFFFF</color>
+
+
+
+
 </resources>

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loginActivity"
             app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_profesorPerfilFragment"
+            app:destination="@id/profesorPerfilFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCourseFragment"
@@ -39,5 +42,10 @@
         android:name="com.example.loginclean.ui.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/profesorPerfilFragment"
+        android:name="com.example.loginclean.ui.ProfesorPerfilFragment"
+        android:label="fragment_profesor_perfil"
+        tools:layout="@layout/fragment_profesor_perfil" />
 
 </navigation>

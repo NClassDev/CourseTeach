@@ -10,4 +10,7 @@
     <string name="msg_horarios">Horarios</string>
     <string name="msg_hora">Hora</string>
     <string name="title_alumnos">Alumnos</string>
+    <string name="verperfil_title">ver perfil</string>
+    <string name="miscursos_title">Mis Cursos</string>
+    <string name="msg_enviar">Enviar</string>
 </resources>

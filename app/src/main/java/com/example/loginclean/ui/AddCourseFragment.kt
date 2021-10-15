@@ -42,7 +42,7 @@ class AddCourseFragment : Fragment(), AlumnosAdapter.OnAlumnoClickListener, Alum
         setupRecyclearView()
         setupObservers()
 
-        binding.btnAddAlumno.setOnClickListener {
+        binding.btnEnviar.setOnClickListener {
             putCurso()
         }
 
