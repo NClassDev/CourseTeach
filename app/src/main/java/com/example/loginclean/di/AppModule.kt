@@ -3,17 +3,20 @@ package com.example.loginclean.di
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.example.loginclean.application.MainActivity
 import com.example.loginclean.data.source.AppDatabase
 import com.example.loginclean.ui.LoginActivity
 import com.example.loginclean.ui.RegisterActivity
+import com.example.loginclean.utilis.Constants
 import com.example.loginclean.utilis.Constants.AUTH_INTENT
 import com.example.loginclean.utilis.Constants.MAIN_INTENT
 import com.example.loginclean.utilis.Constants.REGISTER_INTENT
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.cast.framework.SessionManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -76,5 +79,11 @@ object AppModule {
     @Singleton
     @Provides
     fun provideAlumnosDao(db:AppDatabase) = db.alumnosDao()
+
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context) =
+        context.getSharedPreferences(
+            Constants.PREF_NAME, Context.MODE_PRIVATE
+        )
 
 }

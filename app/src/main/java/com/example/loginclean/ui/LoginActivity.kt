@@ -12,6 +12,7 @@ import com.example.loginclean.databinding.ActivityLoginBinding
 import com.example.loginclean.presentation.LoginViewModel
 import com.example.loginclean.utilis.Constants.MAIN_INTENT
 import com.example.loginclean.utilis.Constants.REGISTER_INTENT
+import com.example.loginclean.utilis.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -33,14 +34,17 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginBtn.setOnClickListener {
-//            signIn()
-            goToHomeActivity()
+//            goToHomeActivity()
 
+            signIn()
         }
 
         binding.loginCreateNewAccountTxtv.setOnClickListener {
             goToRegisterActivity()
         }
+
+        isCheckUser()
+
     }
 
 
@@ -69,12 +73,18 @@ class LoginActivity : AppCompatActivity() {
                     binding.loginProgressBar.visibility = View.GONE
                 }
                 is ResourceFirebase.Failure ->{
+                    showToast(response.errorMessage)
                     binding.loginProgressBar.visibility = View.GONE
                 }
             }
         })
     }
 
+    private fun isCheckUser(){
+        if(viewModel.getStoredTag().isNotEmpty()){
+            goToHomeActivity()
+        }
+    }
 
     private fun goToHomeActivity() {
         startActivity(mainIntent)

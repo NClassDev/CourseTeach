@@ -11,3 +11,7 @@ fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
 fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(message, duration)
 }
+
+fun randomIDCurso(): String = List(4) {
+    (('A'..'G') + ('0'..'9')).random()
+}.joinToString("")

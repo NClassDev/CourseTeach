@@ -1,27 +1,35 @@
 package com.example.loginclean.ui
 
 import CursosAdapter
+import android.content.Intent
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.loginclean.R
 import com.example.loginclean.data.ResourceFirebase
+import com.example.loginclean.data.source.Cursos
 import com.example.loginclean.databinding.FragmentHomeBinding
 import com.example.loginclean.presentation.CursosViewModel
+import com.example.loginclean.presentation.RegisterViewModel
+import com.example.loginclean.utilis.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CursosAdapter.OnCursoClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<CursosViewModel>()
+    private val viewModelRegister by viewModels<RegisterViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +55,12 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        binding.btnSignout.setOnClickListener {
+            viewModelRegister.eraseStoredTag()
+            goToLoginActivity()
+
+        }
+
     }
 
 
@@ -68,7 +82,7 @@ class HomeFragment : Fragment() {
 
 //                    val data = listOf(Cursos("Ingles", "Sabado"), Cursos("Ruso", "Sabado"))
 //                    Log.d("Home: ", response.data[0].horario)
-                    binding.rcyclviewCursos.adapter = CursosAdapter(requireContext(), response.data)
+                    binding.rcyclviewCursos.adapter = CursosAdapter(requireContext(), response.data, this)
 
                     Toast.makeText(requireContext(), "Success ${response.data.size}", Toast.LENGTH_LONG).show()
 
@@ -85,6 +99,20 @@ class HomeFragment : Fragment() {
 
     private fun navigateToAddCourse(fragment: Int){
         findNavController().navigate(fragment)
+    }
+
+    override fun onCursoClick(curso: Cursos, position: Int) {
+
+        val bundle = Bundle()
+        bundle.putSerializable("curso", curso)
+        findNavController().navigate(R.id.cursoDetailFragment, bundle)
+    }
+
+    private fun goToLoginActivity() {
+        val i = Intent(activity, LoginActivity::class.java)
+        // set the new task and clear flags
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
     }
 
 }

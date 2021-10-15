@@ -13,8 +13,15 @@ import javax.inject.Inject
 class CursosViewModel @Inject constructor(
     private val repository: CursosRepository
 ) : ViewModel() {
+
     fun getCursosFrom() = liveData(Dispatchers.IO) {
         repository.getCursosFrom().collect { response ->
+            emit(response)
+        }
+    }
+
+    fun sendRequestUserCurso(idCurso: String) = liveData(Dispatchers.IO) {
+        repository.setUserRequestCurso(idCurso).collect { response ->
             emit(response)
         }
     }

@@ -1,25 +1,26 @@
 package com.example.loginclean.domain.model.usecase
 
+import android.content.SharedPreferences
 import com.example.loginclean.data.ResourceFirebase
 import com.example.loginclean.utilis.Constants
 import com.example.loginclean.utilis.Constants.CREATED_AT
 import com.example.loginclean.utilis.Constants.EMAIL
+import com.example.loginclean.utilis.Constants.UID
 import com.example.loginclean.utilis.Constants.NAME
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
 class RegisterRepository @Inject constructor(
     private val auth: FirebaseAuth,
     private val user: FirebaseFirestore,
+
 ) {
 
     suspend fun signUpWithEmailAndPassword(email: String, pass: String) = flow {
@@ -33,11 +34,11 @@ class RegisterRepository @Inject constructor(
         }
     }
 
-    suspend fun createUserInFirestore(email: String, name: String) = flow {
+    suspend fun createUserInFirestore(email: String, name: String, uid: String) = flow {
         try {
             emit(ResourceFirebase.Loading)
-            user.collection("user").document(email).set(
-                hashMapOf(NAME to name, EMAIL to email, CREATED_AT to FieldValue.serverTimestamp())
+            user.collection("user").document(uid).set(
+                hashMapOf(NAME to name, EMAIL to email, CREATED_AT to FieldValue.serverTimestamp(), UID to uid )
             ).await().also {
                 emit(ResourceFirebase.Success(it))
             }
@@ -46,4 +47,19 @@ class RegisterRepository @Inject constructor(
             emit(ResourceFirebase.Failure(e.message ?: Constants.ERROR_MESSAGE))
         }
     }
+
+//   private fun createUserInFirestoreAuth(email: String, name: String, uid: String) = flow {
+//        try {
+//            emit(ResourceFirebase.Loading)
+//            user.collection("user").document(email).set(
+//                hashMapOf(NAME to name, EMAIL to email, CREATED_AT to FieldValue.serverTimestamp(), UID to uid )
+//            ).await().also {
+//                emit(ResourceFirebase.Success(it))
+//            }
+//
+//        } catch (e: Exception) {
+//            emit(ResourceFirebase.Failure(e.message ?: Constants.ERROR_MESSAGE))
+//        }
+//    }
+
 }

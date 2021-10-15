@@ -1,5 +1,7 @@
 package com.example.loginclean.domain.model.usecase
 
+import android.app.Application
+import android.content.Context
 import com.example.loginclean.data.ResourceFirebase
 import com.example.loginclean.utilis.Constants.CREATED_AT
 import com.example.loginclean.utilis.Constants.EMAIL
@@ -9,8 +11,10 @@ import com.example.loginclean.utilis.Constants.USERS_REF
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
+import dagger.hilt.android.internal.Contexts.getApplication
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
@@ -18,7 +22,7 @@ import javax.inject.Singleton
 @Singleton
 class AuthRepository @Inject constructor(
     private val auth: FirebaseAuth,
-    @Named(USERS_REF) private val usersRef: CollectionReference
+    @Named(USERS_REF) private val usersRef: CollectionReference,
 
 ) {
 
@@ -33,7 +37,6 @@ class AuthRepository @Inject constructor(
         }
     }
 
-
     suspend fun createUserInFirestore() = flow{
         try {
             emit(ResourceFirebase.Loading)
@@ -46,6 +49,7 @@ class AuthRepository @Inject constructor(
                     emit(ResourceFirebase.Success(it))
                 }
             }
+
         }catch (e: Exception){
             emit(ResourceFirebase.Failure(e.message ?: ERROR_MESSAGE))
         }

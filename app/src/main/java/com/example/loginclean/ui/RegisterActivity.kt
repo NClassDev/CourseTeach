@@ -10,6 +10,7 @@ import com.example.loginclean.data.ResourceFirebase
 import com.example.loginclean.databinding.ActivityRegisterBinding
 import com.example.loginclean.presentation.RegisterViewModel
 import com.example.loginclean.utilis.Constants.MAIN_INTENT
+import com.example.loginclean.utilis.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -20,8 +21,6 @@ class RegisterActivity : AppCompatActivity() {
     @Named(MAIN_INTENT)
     @Inject
     lateinit var mainIntent: Intent
-
-
 
     private lateinit var binding: ActivityRegisterBinding
     private val viewModel by viewModels<RegisterViewModel>()
@@ -46,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
 
         if (password == password2) {
             if (email.isNotEmpty() || name.isNotEmpty() || password.isNotEmpty()) {
-                viewModel.signUpWithEmailAndPassword(email, name).observe(this, { response ->
+                viewModel.signUpWithEmailAndPassword(email, password).observe(this, { response ->
                     when (response) {
                         is ResourceFirebase.Loading -> {
                             binding.signupProgressBar.visibility = View.VISIBLE
@@ -54,13 +53,12 @@ class RegisterActivity : AppCompatActivity() {
 
                         is ResourceFirebase.Success -> {
                             binding.signupProgressBar.visibility = View.GONE
-                            createNewUser(email, name)
+                            createNewUser(email, name, response.data.user!!.uid)
                         }
 
                         is ResourceFirebase.Failure -> {
                             binding.signupProgressBar.visibility = View.GONE
                             Toast.makeText(this, "Falló el registro", Toast.LENGTH_SHORT).show()
-
                         }
 
                     }
@@ -71,8 +69,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun createNewUser(email: String, name: String) {
-        viewModel.createNewUser(email, name).observe(this, { response ->
+    private fun createNewUser(email: String, name: String, uid: String) {
+        viewModel.createNewUser(email, name, uid).observe(this, { response ->
             when (response) {
                 is ResourceFirebase.Loading -> {
                     binding.signupProgressBar.visibility = View.VISIBLE
@@ -85,10 +83,18 @@ class RegisterActivity : AppCompatActivity() {
 
                 is ResourceFirebase.Failure -> {
                     binding.signupProgressBar.visibility = View.GONE
-                    Toast.makeText(this, "Falló al crear usuario", Toast.LENGTH_SHORT).show()
+                    showToast(response.errorMessage)
+//                    Toast.makeText(this, "Falló al crear usuario", Toast.LENGTH_SHORT).show()
                 }
             }
         })
+    }
+
+
+    private fun isCheckUser(){
+        if(viewModel.getStoredTag().isNotEmpty()){
+            goToHomeActivity()
+        }
     }
 
     private fun goToHomeActivity() {

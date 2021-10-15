@@ -1,14 +1,16 @@
 package com.example.loginclean.data.source
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
+@Parcelize
 data class Cursos (
     var namecurso: String? = null,
     var horario:String? = null,
     var hora:String? = null,
     var clasesporsemana:String? = null,
-    var listaalumnos: List<Alumnos>? = null
+    var idcurso: String? = null,
+    var idProfesor: String? = null,
 
-):Serializable{
-
-}
+): Parcelable, Serializable

@@ -1,15 +1,24 @@
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginclean.R
 import com.example.loginclean.core.BaseViewHolder
 import com.example.loginclean.data.source.Cursos
+import com.example.loginclean.ui.HomeFragmentDirections
 import kotlinx.android.synthetic.main.cursos_item.view.*
 
-class CursosAdapter(private val context: Context, private val cursosList: List<Cursos>) :
+class CursosAdapter(private val context: Context, private val cursosList: List<Cursos> ,
+private val cursoClickListener : OnCursoClickListener
+                    ) :
     RecyclerView.Adapter<BaseViewHolder<*>> ( ){
+
+    interface OnCursoClickListener{
+        fun onCursoClick(curso: Cursos, position: Int)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return MainViewHolderByIntolerance(LayoutInflater.from(context).inflate(R.layout.cursos_item, parent, false))
@@ -32,8 +41,11 @@ class CursosAdapter(private val context: Context, private val cursosList: List<C
                 itemView.cursos_item_name_text.text = curso.horario
             }
 
-            itemView.setOnClickListener {
 
+            itemView.setOnClickListener {
+               cursoClickListener.onCursoClick(curso, position)
+//                val action = HomeFragmentDirections.actionHomeFragmentToCursoDetailFragment(curso)
+//                itemView.findNavController().navigate(action)
             }
 
         }

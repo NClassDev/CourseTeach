@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_homeFragment_to_addCourseFragment"
             app:destination="@id/addCourseFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cursoDetailFragment"
+            app:destination="@id/cursoDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
     </fragment>
     <fragment
         android:id="@+id/addCourseFragment"
@@ -23,5 +29,15 @@
             android:id="@+id/action_addCourseFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cursoDetailFragment"
+        android:name="com.example.loginclean.ui.CursoDetailFragment"
+        android:label="fragment_curso_detail"
+        tools:layout="@layout/fragment_curso_detail" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.loginclean.ui.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 
 </navigation>
