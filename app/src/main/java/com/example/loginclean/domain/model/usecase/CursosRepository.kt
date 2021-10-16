@@ -1,5 +1,6 @@
 package com.example.loginclean.domain.model.usecase
 
+import android.util.Log
 import com.example.loginclean.data.ResourceFirebase
 import com.example.loginclean.data.source.Cursos
 import com.example.loginclean.utilis.Constants.CLASESPORSEMANACURSO
@@ -8,10 +9,12 @@ import com.example.loginclean.utilis.Constants.CURSOS_REF
 import com.example.loginclean.utilis.Constants.ERROR_MESSAGE
 import com.example.loginclean.utilis.Constants.HORACURSO
 import com.example.loginclean.utilis.Constants.HORARIOCURSO
+import com.example.loginclean.utilis.Constants.IDALUMNO
 import com.example.loginclean.utilis.Constants.IDCURSO
 import com.example.loginclean.utilis.Constants.IDPROFESOR
 import com.example.loginclean.utilis.Constants.LISTAALUMNOSCURSO
 import com.example.loginclean.utilis.Constants.NAMECURSO
+import com.example.loginclean.utilis.Constants.STATEALUMNO
 import com.example.loginclean.utilis.Constants.USERS_REF
 import com.example.loginclean.utilis.Constants.USER_REF
 import com.example.loginclean.utilis.randomIDCurso
@@ -42,7 +45,30 @@ class CursosRepository @Inject constructor(
         }
     }
 
+    fun checkIsProfesor(idCurso: String)= flow {
+        try{
+            emit(ResourceFirebase.Loading)
+            emit(ResourceFirebase.Success(checkIsCurseProfesor(idCurso) ))
 
+        }catch (e: Exception) {
+            emit(ResourceFirebase.Failure(e.message ?: ERROR_MESSAGE))
+        }
+    }
+
+    private suspend fun checkIsCurseProfesor(idCurso: String): Boolean{
+        var isProfesor = false
+
+        var curso = cursoRef.collection(CURSOS_REF).document(idCurso).get().await().toObject(Cursos::class.java)
+
+        Log.d("IDUSER:", auth.uid.toString())
+        Log.d("IDPROFESOR:",curso?.idprofesor.toString())
+
+        if(curso?.idprofesor.equals(getUserID()) ) {
+            isProfesor = true
+        }
+
+        return isProfesor
+    }
     private suspend fun getCursosFromCloudFirestore(): List<Cursos> {
 
         var cursos = cursosCollRef.get().await().toObjects(Cursos::class.java)
@@ -62,8 +88,8 @@ class CursosRepository @Inject constructor(
                 .document(getUserID())
                 .set(
                     hashMapOf(
-                        "alumno" to getUserID(),
-                        "state" to "waiting"
+                        IDALUMNO to getUserID(),
+                        STATEALUMNO to "waiting"
                     )
                 ).await().also {
                     emit(ResourceFirebase.Success(it))
@@ -108,6 +134,7 @@ class CursosRepository @Inject constructor(
 
 
     private fun getUserID(): String {
+        Log.d("IDUSER:", auth.uid.toString())
         return auth.uid!!
     }
 

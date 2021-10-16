@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_add_course.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_curso_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_profesor_perfil.xml" value="0.25" />
         <entry key="app/src/main/res/layout/layout_cursos.xml" value="0.1" />
       </map>
     </option>

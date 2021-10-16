@@ -23,9 +23,17 @@ object Constants {
     //User Fields
     const val NAME = "name"
     const val CURSOSPROFESOR = "cursosactivos"
+    const val ALUMNOSREQUEST = "alumnosrequest"
     const val UID = "uid"
     const val EMAIL = "email"
     const val CREATED_AT = "createdAt"
+
+    //Alumno Fields
+    const val IDALUMNO = "idalumno"
+    const val EMAILALUMNO = "email"
+    const val ISREGISTRED = "isregistred"
+    const val STATEALUMNO = "state"
+
 
     //Curso Fields
     const val NAMECURSO = "namecurso"

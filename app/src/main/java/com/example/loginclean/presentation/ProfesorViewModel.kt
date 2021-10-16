@@ -19,4 +19,10 @@ class ProfesorViewModel @Inject constructor(
         }
     }
 
+    fun getAlumnosInscritos(idCurso:String)= liveData(Dispatchers.IO) {
+        repository.getAlumnosInscritos(idCurso).collect {
+            emit(it)
+        }
+    }
+
 }

@@ -11,6 +11,6 @@ data class Cursos (
     var hora:String? = null,
     var clasesporsemana:String? = null,
     var idcurso: String? = null,
-    var idProfesor: String? = null,
+    var idprofesor: String? = null,
 
 ): Parcelable, Serializable

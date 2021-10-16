@@ -8,9 +8,12 @@
     <string name="msg_nombre_clase">Nombre de clase</string>
     <string name="msg_nombre_clasesPorSemana">Clases por semana</string>
     <string name="msg_horarios">Horarios</string>
-    <string name="msg_hora">Hora</string>
+    <string name="msg_hora">Hora de Clase</string>
     <string name="title_alumnos">Alumnos</string>
     <string name="verperfil_title">ver perfil</string>
     <string name="miscursos_title">Mis Cursos</string>
     <string name="msg_enviar">Enviar</string>
+    <string name="msg_clasestotales">Clases totales</string>
+    <string name="msg_alumnos_inscritos">Alumnos Inscritos</string>
+    <string name="msg_inscribirse">Inscribirse</string>
 </resources>

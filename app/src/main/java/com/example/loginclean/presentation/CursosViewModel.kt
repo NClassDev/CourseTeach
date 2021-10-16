@@ -25,4 +25,12 @@ class CursosViewModel @Inject constructor(
             emit(response)
         }
     }
+
+    fun checkIsCursoProfesor(idCurso: String) = liveData (Dispatchers.IO){
+        repository.checkIsProfesor(idCurso).collect { response ->
+            emit(response)
+        }
+    }
+
+
 }

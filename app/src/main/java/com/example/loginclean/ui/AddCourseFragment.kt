@@ -151,9 +151,7 @@ class AddCourseFragment : Fragment(), AlumnosAdapter.OnAlumnoClickListener, Alum
 
     override fun onAlumnoClick(alumno: Alumnos, position: Int) {
         showToast("${alumno.name}")
-
         viewModel.setAlumno(alumno)
-
     }
 
     override fun onAlumnoClick(alumno: AlumnosEntity, position: Int) {

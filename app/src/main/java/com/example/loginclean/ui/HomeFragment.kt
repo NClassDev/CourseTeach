@@ -11,6 +11,7 @@ import android.widget.GridLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.loginclean.R
 import com.example.loginclean.data.ResourceFirebase
@@ -71,7 +72,7 @@ class HomeFragment : Fragment(), CursosAdapter.OnCursoClickListener {
 
     private fun setupRecyclearView() {
         binding.rcyclviewCursos.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            GridLayoutManager(requireContext(),2)
     }
 
     private fun setupObservers() {
@@ -89,7 +90,7 @@ class HomeFragment : Fragment(), CursosAdapter.OnCursoClickListener {
 //                    Log.d("Home: ", response.data[0].horario)
                     binding.rcyclviewCursos.adapter = CursosAdapter(requireContext(), response.data, this)
 
-                    Toast.makeText(requireContext(), "Success ${response.data.size}", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(requireContext(), "Success ${response.data.size}", Toast.LENGTH_LONG).show()
 
                     binding.progressBar.visibility = View.GONE
                 }
